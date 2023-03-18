@@ -17,8 +17,11 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
 
+      - name: Audit fix
+        uses: npm audit fix --force
+
       - name: Install dependencies
-        uses: bahmutov/npm-install@v1
+        uses: npm install
 
       - name: Build project
         run: npm run build
