@@ -1,45 +1,78 @@
-import Vue from "vue";
-import Router from "vue-router";
+import { createRouter, createWebHistory } from 'vue-router'
+import HomeView from '../views/HomeView.vue'
 
-//Pages
-import Home from "../components/HomeComponent.vue";
-import About from "../components/AboutComponent.vue";
-import Contact from "../components/ContactComponent.vue";
-
-Vue.use(Router);
-
-export default new Router({
+const router = createRouter({
+  history: createWebHistory(),
   base: process.env.NODE_ENV === 'production'?'/portfolio': '',
-  mode: "history",
   routes: [
-    
     {
       path: '/',
+      name: 'home',
       redirect: '/home',
-      name: 'HomeRoot',
-      meta: {
-        auth: false
-      },
-      component: {
-        render(c) { return c('router-view') }
-      },
       children: [
         {
-          path: 'home',
-          name: 'Home',
-          component: Home
+          path: '/home',
+          name: 'home',
+          component: HomeView,
+          meta: {
+            title: 'Home'
+          },
         },
         {
-          path: 'about',
-          name: 'About',
-          component: About
+          path: '/about',
+          name: 'about',
+          meta: {
+            title: 'About Me'
+          },
+          component: () => import('../views/AboutView.vue')
         },
         {
-          path: 'contact',
-          name: 'Contact',
-          component: Contact
-        }
+          path: '/contact',
+          name: 'contact',
+          meta: {
+            title: 'Contact Me'
+          },
+          component: () => import('../views/Contact.vue')
+        },
       ]
-    }
+    },
+    // {
+    //   path: '/about',
+    //   name: 'about',
+    //   meta: {
+    //     title: 'About Me'
+    //   },
+    //   component: () => import('../views/AboutView.vue')
+    // },
+    // {
+    //   path: '/contact',
+    //   name: 'contact',
+    //   meta: {
+    //     title: 'About Me'
+    //   },
+      
+    //   // route level code-splitting
+    //   // this generates a separate chunk (About.[hash].js) for this route
+    //   // which is lazy-loaded when the route is visited.
+    //   component: () => import('../views/Contact.vue')
+    // },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "not-found",
+      component: () => import("../views/NotFound.vue"),
+    },
   ]
-});
+})
+
+router.beforeEach((to, from, next) => {
+  // Get the page title from the route meta data that we have defined
+  // See further down below for how we setup this data
+  const title = to.meta.title
+  // If the route has a title, set it as the page title of the document/page
+  if (title) {
+    document.title = title
+  }
+  // Continue resolving the route
+  next()
+})
+export default router

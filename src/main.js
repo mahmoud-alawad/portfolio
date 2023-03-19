@@ -1,15 +1,16 @@
-import Vue from 'vue';
-import App from './App.vue';
-import router from './router';
-Vue.router = router;
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
+import './assets/scss/index.scss'
+import './assets/scss/base.css'
 
-Vue.config.productionTip = false
+/*import {ApiClient, SendSmtpEmail} from '@sendinblue/client';
 
-new Vue({
-  el: '#app',
-  router: Vue.router,
-  template: '<App/>',
-  components: {
-    App
-  }
-})
+const apiInstance = new ApiClient();
+apiInstance.setApiKey(import.meta.env.VITE_SMTP_KEY);
+
+ */
+
+const app = createApp(App)
+app.use(router)
+app.mount('#app')

@@ -1,8 +1,24 @@
-# vuejs-deploy-file-repository
+# vue
 
-# Installation
+## Project setup
+```
+npm install
+```
 
-1. Clone the repo : git clone https://github.com/iamsukanta/vuejs-deploy-file-repository.git
-2. cd vuejs-deploy-file-repository
-3. npm install
-4. `npm run serve`
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
